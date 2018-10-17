@@ -1,0 +1,12 @@
+body {
+	padding-top: 20px;
+}
+
+*{
+	padding-top: 5px;
+}
+.wrapper {
+	background-color: #D1D1E8; margin : 0 auto;
+	width: 500px;
+	margin: 0 auto;
+}

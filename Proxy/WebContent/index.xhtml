@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Proxy</title>
+	<!-- 	<h:outputStylesheet library="default" name="css/bootstrap.min.css" /> -->
+	<h:outputStylesheet library="default" name="css/album.css" />
+	<!-- 	<h:outputScript library="default" name="js/jquery-3.2.1.js" /> -->
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 	<h:outputScript library="default" name="js/main.js" /> -->
+</h:head>
+
+<h:body>
+
+	<h:form id="myForm">
+
+		<div class="album text-muted">
+			<div class="container">
+
+				<div class="row">
+					<ui:repeat var="media" value="#{clienteBean.listado}">
+						<div class="card">
+							<h:commandLink action="#{clienteBean.showVideo}" immediate="true">
+								<h:graphicImage library="default" name="img/#{media.display}" width="318px" height="180px" />
+								<f:setPropertyActionListener target="#{clienteBean.mediaSelect}" value="#{media}" />
+								<f:ajax execute="@this" render=":myForm" />
+							</h:commandLink>
+						</div>
+					</ui:repeat>
+				</div>
+			</div>
+		</div>
+
+		<h:outputScript rendered="#{clienteBean.video ne null}">
+			$(document).ready(function(){
+			        $("#myModal").modal();
+			});
+		</h:outputScript>
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<h:form id="myForm">
+						<div class="modal-header">
+							<h4 class="modal-title">Video</h4>
+						</div>
+						<div class="modal-body"><iframe width="560" height="315" src="#{clienteBean.video}" frameborder="0" ></iframe></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>
